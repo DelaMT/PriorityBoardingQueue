@@ -3,59 +3,30 @@
 <html>
 <head>
     <title>Main Menu</title>
-    <style>
-		ul {
-		  list-style-type: none;
-		  margin: 0;
-		  padding: 0;
-		  overflow: hidden;
-		  background-color: #0F52BA;
-		}
-
-		li {
-		  float: left;
-		}
-
-		li a {
-		  display: block;
-		  color: white;
-		  text-align: center;
-		  padding: 14px 16px;
-		  text-decoration: none;
-		  font: 15px Brittania, sans-serif;
-		  font-weight: 555;
-		}
-
-		li a:hover {
-		  background-color: #0F21BA;
-		}
-	
-        .titleTextStyle {
-            color: #0F52BA;
-            font: 40px Brittania, sans-serif;
-            font-weight: 555;
-            text-decoration: underline;
-            margin-left: 15px;
-        }
+	<link rel = "stylesheet"
+		type = "text/css"
+		href = "styles/sharedStyles/headerStyle.css" />
+    
+	<link rel = "stylesheet"
+		type = "text/css"
+		href = "styles/sharedStyles/titleStyle.css" />
 		
-		.subtitleTextStyle {
-            color: #0F21BA;
-            font: 25px Brittania, sans-serif;
-            font-weight: 444;;
-            margin-left: 15px;
-        }
-
-        .classStyle {
-            border-style: solid;
-			border-color: #0F52BA;
-            padding-bottom: 25px;
-        }
-    </style>
+	<link rel = "stylesheet"
+		type = "text/css"
+		href = "styles/sharedStyles/classStyle.css" />
+ 
+	<link rel = "stylesheet"
+		type = "text/css"
+		href = "styles/mainMenuStyles/subtitleStyle.css" />
+		<style>
+		
+		</style>
 </head>
 <body>
 	<ul>
-	  <li><a href="form.html">Form</a></li>
-	  <li><a href="adminUtils.html">Admin Utilities</a></li>
+	  <li><a id="form" href="htmlFiles/form.html">Form</a></li>
+	  <li><a id="adminUtils" href="htmlFiles/adminUtils.html">Admin Utilities</a></li>
+	  <li> <img id="gcimg" src="media/gozoChannel.png"></li> 
 	</ul> 
 	
     <section class="classStyle">
