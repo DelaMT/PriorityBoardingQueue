@@ -1,9 +1,9 @@
 		/* TITLE STYLE SHEET */
 
 		.titleTextStyle {
-            color: #0F52BA;
-            font: 35px Brittania, sans-serif;
-            font-weight: 555;
+            color: white;
+            font: 35px Calibri, sans-serif;
+            font-weight: bold;
             text-decoration: underline;
             margin-left: 20px;
         }
