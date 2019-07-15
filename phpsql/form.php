@@ -18,19 +18,19 @@
     <title>Form</title>
 	<link rel = "stylesheet"
 		type = "text/css"
-		href = "../styles/sharedStyles/headerStyle.css" />
+		href = "./styles/sharedStyles/headerStyle.css" />
 		
 	<link rel = "stylesheet"
 		type = "text/css"
-		href = "../styles/sharedStyles/titleStyle.css" />
+		href = "./styles/sharedStyles/titleStyle.css" />
 		
 	<link rel = "stylesheet"
 		type = "text/css"
-		href = "../styles/sharedStyles/classStyle.css" />
+		href = "./styles/sharedStyles/classStyle.css" />
 		
 	<link rel = "stylesheet"
 		type = "text/css"
-		href = "../styles/formStyles/formStyle.css" />
+		href = "./styles/formStyles/formStyle.css" />
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 		  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
@@ -320,22 +320,23 @@
 		<input type=text name=number id=number required>
 			</div>
 			<br><br>
-		<!--Mgarr Date:
-		<input type=date name=mgarrdate id=mgarrdate> -->
-		<!--<br/><br/><br/>-->
-		<!--Trips:
-		 <input list="specific">
-		<datalist id="specific">
-			<option value="Open">
-			<option value="Specific">
-		</datalist> -->
 			<div class="idcard">
 			<label for="idcard" id="label4">ID Card:</label>
 			<input type="text" name="idcard" id="idcard" required>
 			<label for="er">Extra Requirements:</label>
-			<select id="er">
-				<option value="none">None</option>
-				<option value="wheelchair use">Wheelchair Use</option>
+			<select id="er" name="er">
+                <?php
+                require 'ExtraReqMethods.php';
+                $serverName = "intranet1\sqlexpress";
+                $connectionInfo = array( "Database"=>"PriorityBoarding");
+                $conn = sqlsrv_connect( $serverName, $connectionInfo);
+                $sql = sqlsrv_query($conn, "SELECT Extra_Requirements AS er FROM dbo.Extra_Reqs");
+                while ($row = sqlsrv_fetch_array($sql)){
+                    //echo "<option value="'.$row['reason'] .'">" . $row['reason'] . "</option>";
+                    echo '<option value="'.$row['er'].'">'.$row['er'].'</option>';
+
+                }
+                ?>
 			</select>
 			<br/><br/><br/>
 			</div>
@@ -367,27 +368,34 @@
 					<label for="reg4">Registration 4:</label>
 					<input type="text" name="reg4" id="reg4">
 				</div>
-				<br>
+				<br><br>
 				<div class="selectmgarr1">
 				<label for="mgarr">Mgarr Trips 1:</label>
 			<select id = "mgarr" name="mgarr" onChange="changetextboxmgarr();">
-				<option value="specific">Specific</option>
-				<option value="open">Open</option>
+                <option value="na">N/A</option>
+                <option value="open">Open</option>
+                <option value="specific">Specific</option>
 			</select>
-				<label for="mgarrdate">Date of travel to Mgarr:</label>
-				<input type="date" name="mgarrdate" id="mgarrdate" />
+				<label for="mgarrdate">Date of travel FROM Mgarr:</label>
+				<input type="date" name="mgarrdate" id="mgarrdate" disabled/>
 				<label for="mgarrtime">Time 1:</label>
-				<input type="time" name="mgarrtime" id="mgarrtime" />
+				<input type="time" name="mgarrtime" id="mgarrtime" disabled/>
 				<script type="text/javascript">
 					function changetextboxmgarr()
 					{
 						if (document.getElementById("mgarr").value === "specific") {
 							document.getElementById("mgarrdate").disabled='';
 							document.getElementById("mgarrtime").disabled='';
-						} else {
-							document.getElementById("mgarrdate").disabled=true;
+                            document.getElementById("mgarrdate").required=true;
+                            document.getElementById("mgarrtime").required=true;
+						} else if(document.getElementById("mgarr").value === "open"){
+							document.getElementById("mgarrdate").disabled='';
 							document.getElementById("mgarrtime").disabled=true;
-						}
+                            document.getElementById("mgarrdate").required=true;
+						} else{
+                            document.getElementById("mgarrdate").disabled=true;
+                            document.getElementById("mgarrtime").disabled=true;
+                        }
 					}
 				</script>
 				</div>
@@ -395,69 +403,82 @@
 			<div class="selectcirkewwa1">
 				<label for="cirkewwa">Cirkewwa Trips 1:</label>
 				<select id = "cirkewwa" name="cirkewwa" onChange="changetextboxcirkewwa();">
-					<option value="specific">Specific</option>
-					<option value="open">Open</option>
+                    <option value="na">N/A</option>
+                    <option value="open">Open</option>
+                    <option value="specific">Specific</option>
 				</select>
-				<label for="cirkewwadate">Date of travel to Mgarr:</label>
-				<input type="date" name="cirkewwadate" id="cirkewwadate" />
+				<label for="cirkewwadate">Date of travel TO Cirkewwa:</label>
+				<input type="date" name="cirkewwadate" id="cirkewwadate" disabled/>
 				<label for="cirkewwatime">Time 1:</label>
-				<input type="time" name="cirkewwatime" id="cirkewwatime" />
+				<input type="time" name="cirkewwatime" id="cirkewwatime" disabled/>
 				<script type="text/javascript">
 					function changetextboxcirkewwa()
 					{
 						if (document.getElementById("cirkewwa").value === "specific") {
 							document.getElementById("cirkewwadate").disabled='';
 							document.getElementById("cirkewwatime").disabled='';
-						} else {
-							document.getElementById("cirkewwadate").disabled=true;
+						} else if(document.getElementById("cirkewwa").value === "open"){
+							document.getElementById("cirkewwadate").disabled='';
 							document.getElementById("cirkewwatime").disabled=true;
-						}
+						} else{
+                            document.getElementById("cirkewwadate").disabled=true;
+                            document.getElementById("cirkewwatime").disabled=true;
+                        }
 					}
 				</script>
 			</div>
 			<div class="selectmgarr2">
 				<label for="mgarr2">Mgarr Trips 2:</label>
 				<select id = "mgarr2" name="mgarr2" onChange="changetextboxmgarr2();">
-					<option value="specific">Specific</option>
-					<option value="open">Open</option>
+                    <option value="na">N/A</option>
+                    <option value="open">Open</option>
+                    <option value="specific">Specific</option>
 				</select>
-				<label for="mgarrdate2">Date of travel to Cirkewwa:</label>
-				<input type="date" name="mgarrdate2" id="mgarrdate2" />
+				<label for="mgarrdate2">Date of travel TO Mgarr:</label>
+				<input type="date" name="mgarrdate2" id="mgarrdate2" disabled/>
 				<label for="mgarrtime2">Time 2:</label>
-				<input type="time" name="mgarrtime2" id="mgarrtime2" />
+				<input type="time" name="mgarrtime2" id="mgarrtime2" disabled/>
 				<script type="text/javascript">
 					function changetextboxmgarr2()
 					{
 						if (document.getElementById("mgarr2").value === "specific") {
 							document.getElementById("mgarrdate2").disabled='';
 							document.getElementById("mgarrtime2").disabled='';
-						} else {
-							document.getElementById("mgarrdate2").disabled=true;
+						} else if(document.getElementById("mgarr2").value === "open"){
+							document.getElementById("mgarrdate2").disabled='';
 							document.getElementById("mgarrtime2").disabled=true;
-						}
+						} else{
+                            document.getElementById("mgarrdate2").disabled=true;
+                            document.getElementById("mgarrtime2").disabled=true;
+                        }
 					}
 				</script>
 			</div>
 			<div class="selectcirkewwa2">
 				<label for="cirkewwa2">Cirkewwa Trips 2:</label>
 				<select id = "cirkewwa2" name="cirkewwa2" onChange="changetextboxcirkewwa2();">
-					<option value="specific">Specific</option>
-					<option value="open">Open</option>
+                    <option value="na">N/A</option>
+                    <option value="open">Open</option>
+                    <option value="specific">Specific</option>
+
 				</select>
-				<label for="cirkewwadate2">Date of travel to Cirkewwa:</label>
-				<input type="date" name="cirkewwadate2" id="cirkewwadate2" />
+				<label for="cirkewwadate2">Date of travel FROM Cirkewwa:</label>
+				<input type="date" name="cirkewwadate2" id="cirkewwadate2" disabled/>
 				<label for="cirkewwatime">Time 1:</label>
-				<input type="time" name="cirkewwatime2" id="cirkewwatime2" />
+				<input type="time" name="cirkewwatime2" id="cirkewwatime2" disabled />
 				<script type="text/javascript">
 					function changetextboxcirkewwa2()
 					{
 						if (document.getElementById("cirkewwa2").value === "specific") {
 							document.getElementById("cirkewwadate2").disabled='';
 							document.getElementById("cirkewwatime2").disabled='';
-						} else {
-							document.getElementById("cirkewwadate2").disabled=true;
+						} else if (document.getElementById("cirkewwa2").value === "open"){
+							document.getElementById("cirkewwadate2").disabled='';
 							document.getElementById("cirkewwatime2").disabled=true;
-						}
+						} else{
+                            document.getElementById("cirkewwadate2").disabled=true;
+                            document.getElementById("cirkewwatime2").disabled=true;
+                        }
 					}
 				</script>
 			</div>

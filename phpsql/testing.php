@@ -7,19 +7,16 @@ require 'PassengerMethods.php';
 require 'VehicleMethods.php';
 require 'RemarkMethods.php';
 require 'MainMethods.php';
+require 'ExtraReqMethods.php';
 
 $highest=0;
 $name = htmlentities($_GET['passengername']);
 $number = htmlentities($_GET['number']);
 $idcard = htmlentities($_GET['idcard']);
 $countrycode = htmlentities($_GET['countryCode']);
-echo $countrycode . "\n";
 
 //concatenating the country code with the phone number
 $number = $countrycode . " " . $number;
-echo $name;
-echo $number;
-echo $idcard;
 
 $serverName = "intranet1\sqlexpress"; //serverName\instanceName
 
@@ -97,52 +94,83 @@ if(($rem = fetchRemark($reason, $conn))!=NULL) {
 
 //START OF MAIN DB
 $extrareqs = htmlentities($_GET['er']);
-$mgarrtrip1 = htmlentities($_GET['mgarr']);
-$mgarrdate1 = htmlentities($_GET['mgarrdate']);
-$mgarrtime1 = htmlentities($_GET['mgarrtime']);
-$cirkewwatrip1 = htmlentities($_GET['cirkewwa']);
-$cirkewwadate1 = htmlentities($_GET['cirkewwadate']);
-$cirkewwatime1 = htmlentities($_GET['cirkewwatime']);
-$mgarrtrip2 = htmlentities($_GET['mgarr2']);
-$mgarrdate2 = htmlentities($_GET['mgarrdate2']);
-$mgarrtime2 = htmlentities($_GET['mgarrtime2']);
-$cirkewwatrip2 = htmlentities($_GET['cirkewwa2']);
-$cirkewwadate2 = htmlentities($_GET['cirkewwadate2']);
-$cirkewwatime2 = htmlentities($_GET['cirkewwatime2']);
+echo "extra reqs is $extrareqs";
+$extrareqs=getReqID($extrareqs, $conn);
+
 $remarkid = getRemarkID($reason, $conn);
+
+
+$PID = findPID($idcard, $conn);
+
 $ID = 0;
 findLargestID($ID, $conn);
 $ID += 1;
+$mgarrtrip1 = htmlentities($_GET['mgarr']);
+$cirkewwatrip1 = htmlentities($_GET['cirkewwa']);
+$mgarrtrip2 = htmlentities($_GET['mgarr2']);
+$cirkewwatrip2 = htmlentities($_GET['cirkewwa2']);
 
-//START OF MAIN/VEHICLE DB
-$query = "INSERT INTO dbo.Main()
-        VALUES();";
+$query = "INSERT INTO dbo.Main(ID, PID, ER_ID, Registration_1, Registration_2, Registration_3, Registration_4, Mgarr_Trips_1, Mgarr_Trips_2, Cirkewwa_Trips_1, Cirkewwa_Trips_2, RemarksID)
+ VALUES($ID, $PID, '$extrareqs', '$reg1', '$reg2', '$reg3', '$reg4', '$mgarrtrip1', '$mgarrtrip2', '$cirkewwatrip1', '$cirkewwatrip2', $remarkid)";
+
 $result = sqlsrv_query($conn, $query);
 if (!$result) {
     die(print_r(sqlsrv_errors(), true));
 }
 echo "Added to Database!";
 
+if(($mgarrtrip1 = htmlentities($_GET['mgarr']))=="specific") {
+    $mgarrdate1 = htmlentities($_GET['mgarrdate']);
+    $mgarrtime1 = htmlentities($_GET['mgarrtime']);
+    $mgarrdate1=date("Y-m-d",strtotime($mgarrdate1));
+    $query_update = "UPDATE dbo.Main SET Mgarr_Date_of_travel_from='$mgarrdate1',Mgarr_Specific_Trip_1='$mgarrtime1' WHERE ID=$ID;";
+    $result = sqlsrv_query($conn, $query_update);
+} else if(($mgarrtrip1 = htmlentities($_GET['mgarr']))=="open"){
+    $mgarrdate1 = htmlentities($_GET['mgarrdate']);
+    $query_update = "UPDATE dbo.Main SET Mgarr_Date_of_travel_from='$mgarrdate1' WHERE ID=$ID;";
+    $result = sqlsrv_query($conn, $query_update);
+}
+if(($cirkewwatrip1 = htmlentities($_GET['cirkewwa']))=="specific") {
+    $cirkewwadate1 = htmlentities($_GET['cirkewwadate']);
+    $cirkewwatime1 = htmlentities($_GET['cirkewwatime']);
+    $cirkewwadate1=date("Y-m-d",strtotime($cirkewwadate1));
+    $query_update = "UPDATE dbo.Main SET Cirkewwa_Date_of_travel_to='$cirkewwadate1',Cirkewwa_Specific_Trip_1='$cirkewwatime1' WHERE ID=$ID;";
+    $result = sqlsrv_query($conn, $query_update);
+} else if(($cirkewwatrip1 = htmlentities($_GET['cirkewwa']))=="open"){
+    $cirkewwadate1 = htmlentities($_GET['cirkewwadate']);
+    $query_update = "UPDATE dbo.Main SET Cirkewwa_Date_of_travel_to='$cirkewwadate1' WHERE ID=$ID;";
+    $result = sqlsrv_query($conn, $query_update);
+}
+if(($mgarrtrip2 = htmlentities($_GET['mgarr2']))=="specific") {
+    $mgarrdate2 = htmlentities($_GET['mgarrdate2']);
+    $mgarrtime2 = htmlentities($_GET['mgarrtime2']);
+    $mgarrdate2=date("Y-m-d",strtotime($mgarrdate1));
+    $query_update = "UPDATE dbo.Main SET Mgarr_Date_of_travel_to='$mgarrdate2',Mgarr_Specific_Trip_2='$mgarrtime2' WHERE ID=$ID;";
+    $result = sqlsrv_query($conn, $query_update);
+} else if(($mgarrtrip2 = htmlentities($_GET['mgarr2']))=="open"){
+    $mgarrdate2 = htmlentities($_GET['mgarrdate2']);
+    $query_update = "UPDATE dbo.Main SET Mgarr_Date_of_travel_to='$mgarrdate2' WHERE ID=$ID;";
+    $result = sqlsrv_query($conn, $query_update);
+}
+if(($cirkewwatrip2 = htmlentities($_GET['cirkewwa2']))=="specific") {
+    $cirkewwadate2 = htmlentities($_GET['cirkewwadate2']);
+    $cirkewwatime2 = htmlentities($_GET['cirkewwatime2']);
+    $cirkewwadate2=date("Y-m-d",strtotime($mgarrdate1));
+    $query_update = "UPDATE dbo.Main SET Cirkewwa_Date_of_travel_from='$cirkewwadate2',Cirkewwa_Specific_Trip_2='$cirkewwatime2' WHERE ID=$ID;";
+    $result = sqlsrv_query($conn, $query_update);
+} else if(($cirkewwatrip2 = htmlentities($_GET['cirkewwa2']))=="open"){
+    $cirkewwadate2 = htmlentities($_GET['cirkewwadate2']);
+    $query_update = "UPDATE dbo.Main SET Cirkewwa_Date_of_travel_from='$cirkewwadate2' WHERE ID=$ID;";
+    $result = sqlsrv_query($conn, $query_update);
+}
 
-
-checkFerry($mgarrtrip1, $mgarrtime1, $mgarrdate1);
-checkFerry($mgarrtrip2, $mgarrtime2, $mgarrdate2);
-checkFerry($cirkewwatrip1, $cirkewwatime1, $cirkewwadate1);
-checkFerry($cirkewwatrip2, $cirkewwatime2, $cirkewwadate2);
-
-$PID = findPID($idcard, $conn);
-//echo "\n\n\nThe found PID is $PID\n\n\n";
-
-$query = "INSERT INTO dbo.Main(ID, PID, Extra_Requirements, Registration_1, Registration_2, Registration_3, Registration_4, Mgarr_Date_of_travel_from, Mgarr_Trips_1,
-Mgarr_Specific_Trip_1, Mgarr_Date_of_travel_to, Mgarr_Trips_2, Mgarr_Specific_Trip_2, Cirkewwa_Date_of_travel_from, Cirkewwa_Trips_1, Cirkewwa_Specific_Trip_1, Cirkewwa_Date_of_travel_to,
-Cirkewwa_Trips_2, Cirkewwa_Specific_Trip_2, RemarksID)
-        VALUES($ID, $PID, '$extrareqs', '$reg1', '$reg2', '$reg3', '$reg4', '$mgarrdate1', '$mgarrtrip1', '$mgarrtime1', '$mgarrdate2', '$mgarrtrip2', '$mgarrtime2', '$cirkewwadate1', '$cirkewwatrip1', '$cirkewwatime1',
-         '$cirkewwadate2', '$cirkewwatrip2', '$cirkewwatime2', $remarkid);";
-    $result = sqlsrv_query($conn, $query);
-    if (!$result) {
-        die(print_r(sqlsrv_errors(), true));
-    }
-    echo "Added to Database!";
+//START OF MAINVEHICLE DB
+$MVID = 0;
+findLargestMVID($MVID, $conn);
+inputReg($reg1, $MVID, $ID, $conn);
+inputReg($reg2, $MVID, $ID, $conn);
+inputReg($reg3, $MVID, $ID, $conn);
+inputReg($reg4, $MVID, $ID, $conn);
 
 ?>
 <br><br>

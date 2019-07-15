@@ -29,6 +29,12 @@ function addVehicle($vehicle, $reg, $idcard, $conn){
 
     }
     echo "Added to Database!";
-
+}
+function DetectReg($reg){
+    if($reg==NULL){
+        return false;
+    }else{
+        return true;
+    }
 }
 ?>
