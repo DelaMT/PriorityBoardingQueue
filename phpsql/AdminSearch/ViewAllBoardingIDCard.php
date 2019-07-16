@@ -24,13 +24,13 @@
     $connectionInfo = array( "Database"=>"PriorityBoarding");
     $conn = sqlsrv_connect( $serverName, $connectionInfo);
 
-    $id = $_POST['personid'];
+    $id = $_POST['personidcard'];
 
     $query_priority1 = "SELECT Main.ID, Main.PID, Extra_Reqs.Extra_Requirements, Passengers.PassengerIDCard, Main.Mgarr_Date_of_travel_from, Main.Mgarr_Specific_Trip_1, Main.Mgarr_Date_of_travel_to, Main.Mgarr_Specific_Trip_2, Main.Cirkewwa_Date_of_travel_to, Main.Cirkewwa_Specific_Trip_1, Main.Cirkewwa_Date_of_travel_from, Main.Cirkewwa_Specific_Trip_2, Remarks.Reason 
     FROM dbo.Main INNER JOIN dbo.Passengers ON Main.PID=Passengers.PID 
     INNER JOIN dbo.Extra_Reqs ON Main.ER_ID=Extra_Reqs.ER_ID
     INNER JOIN dbo.Remarks ON Main.RemarksID = Remarks.Remark_ID
-    WHERE Main.PID = $id;";
+    WHERE Passengers.PassengerIDCard = '$id';";
 
     $rowSQL = sqlsrv_query($conn, $query_priority1);
     //die(print_r(sqlsrv_errors(), true));

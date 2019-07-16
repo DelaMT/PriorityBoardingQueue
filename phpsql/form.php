@@ -8,7 +8,7 @@
 		var x=document.forms["form1"]["number"].value;
 		if (isNaN(x))
 		{
-			alert("Must input numbers");
+			alert("Must input numbers in the Contact Number field!");
 			return false;
 		}
 	}
@@ -51,28 +51,6 @@
         <h1 class="titleTextStyle">
             PRIORITY BOARDING QUEUE FORM
         </h1>
-        <!--<section class="sectionOneStyle">
-
-            <section class="sectionOnePanelStyle1">
-                <text class="infoTextStyle">
-                    ID : 
-                </text>
-                    <form>
-                        <input type=text id=inputID>
-                    </form>
-            </section>
-
-            <section class="sectionOnePanelStyle2">
-                <text class="infoTextStyle">
-                    Reason :
-                </text>
-				
-                <form>
-                    <input type=text id=inputReason>
-                </form>
-				<br/>s
-            </section>
-		</section>-->
         <section>
 		<form action="testing.php" method="get" id="form1" onsubmit="return checkInp()" name="form1">
 			<div class = "pname">
@@ -417,9 +395,12 @@
 						if (document.getElementById("cirkewwa").value === "specific") {
 							document.getElementById("cirkewwadate").disabled='';
 							document.getElementById("cirkewwatime").disabled='';
+                            document.getElementById("cirkewwadate").required=true;
+                            document.getElementById("cirkewwatime").required=true;
 						} else if(document.getElementById("cirkewwa").value === "open"){
 							document.getElementById("cirkewwadate").disabled='';
 							document.getElementById("cirkewwatime").disabled=true;
+                            document.getElementById("cirkewwadate").required=true;
 						} else{
                             document.getElementById("cirkewwadate").disabled=true;
                             document.getElementById("cirkewwatime").disabled=true;
@@ -444,9 +425,12 @@
 						if (document.getElementById("mgarr2").value === "specific") {
 							document.getElementById("mgarrdate2").disabled='';
 							document.getElementById("mgarrtime2").disabled='';
+                            document.getElementById("mgarrdate2").required=true;
+                            document.getElementById("mgarrtime2").required=true;
 						} else if(document.getElementById("mgarr2").value === "open"){
 							document.getElementById("mgarrdate2").disabled='';
 							document.getElementById("mgarrtime2").disabled=true;
+                            document.getElementById("mgarrdate2").required=true;
 						} else{
                             document.getElementById("mgarrdate2").disabled=true;
                             document.getElementById("mgarrtime2").disabled=true;
@@ -472,9 +456,12 @@
 						if (document.getElementById("cirkewwa2").value === "specific") {
 							document.getElementById("cirkewwadate2").disabled='';
 							document.getElementById("cirkewwatime2").disabled='';
+                            document.getElementById("cirkewwadate2").required=true;
+                            document.getElementById("cirkewwatime2").required=true;
 						} else if (document.getElementById("cirkewwa2").value === "open"){
 							document.getElementById("cirkewwadate2").disabled='';
 							document.getElementById("cirkewwatime2").disabled=true;
+                            document.getElementById("cirkewwadate2").required=true;
 						} else{
                             document.getElementById("cirkewwadate2").disabled=true;
                             document.getElementById("cirkewwatime2").disabled=true;

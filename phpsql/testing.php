@@ -47,7 +47,10 @@ if(checkPassenger($idcard, $conn) == 0) {
 
     }
     echo "Added to Database!";
-} else{
+} else if(checkName($idcard, $name, $conn)==false){
+    echo "<script> location.href='./AdminSearch/ConfirmName.php'; </script>";
+    exit;
+}else{
     echo "Welcome Back!";
 }
 

@@ -21,8 +21,11 @@
 </div>
 <br>
 <div class="idcardsearch">
+    <form action="./AdminSearch/searchidcard.php" method="post">
     <label for="personidcard">Search by passenger ID CARD number:</label>
     <input type="text" id="personidcard" name="personidcard">
+    <input type="submit" id="personidcard" value="Search Database">
+    </form>
 </div>
 
 <?php
