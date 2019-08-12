@@ -1,0 +1,9 @@
+		/* TITLE STYLE SHEET */
+
+		.titleTextStyle {
+            color: white;
+            font: 35px Calibri, sans-serif;
+            font-weight: bold;
+            text-decoration: underline;
+            margin-left: 20px;
+        }

@@ -1,0 +1,67 @@
+		/* HEADER STYLE SHEET */
+		ul {
+		  list-style-type: none;
+		  margin: 0;
+		  padding: 0;
+		  overflow: hidden;
+		  background-color: #0F52BA;
+		  width: 800px;
+		}
+
+		li a {
+		  display: block;
+		  color: white;
+		  text-align: center;
+		  padding: 14px 16px;
+		  text-decoration: none;
+		  font: 15px Brittania, sans-serif;
+		  font-weight: 555;
+		}
+
+		li a:hover {
+		  background-color: #0F21BA;
+		}
+		
+		#gcimg{
+			float: right;
+			height: 45px;
+			width: 68px;
+			padding-top: 3px;
+			padding-right: 3px;
+		}
+		
+		#adminUtils{
+			float: left;
+		}
+		
+		#form{
+			float:left;
+		}
+		
+		#formHistory{
+			float:left;
+		}
+		
+		#mainMenu{
+			float:left;
+		}
+		.pname{
+			margin:0 auto;
+			width:250px;
+			display:inline;
+		}
+		.idcard{
+			margin:0 auto;
+			width:250px;
+			display:inline;
+		}
+		.contact, .selectmgarr1, .selectcirkewwa1{
+			display:inline;
+			margin:0 auto;
+			width:250px;
+		}
+		.veh1, .veh2, .veh3, .veh4{
+			margin:0 auto;
+			width:250px;
+			display:inline;
+		}

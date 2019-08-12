@@ -1,0 +1,31 @@
+		/* OPTION STYLE SHEET */
+
+		.buttonNavStyle {
+			height: wrap;
+			width: 150px;
+			padding: 17px;
+			background-color: #0F52BA;
+			margin-left: 15px;
+			display: inline;
+			border-style: solid;
+			border-color: #0F21BA;
+			cursor:pointer;
+		}
+
+		.buttonNavStyle:hover{
+			background-color: #0F21BA;
+		}
+		
+		.subTextStyle {
+			color: #fff;
+			font-weight: 620;
+			weight:620;
+            font: 12px Brittania, sans-serif;
+			width: 90px;
+			margin-left: 5px;
+			text-decoration: none;
+		}
+		
+		.navSectionStyleSpacing {
+			margin-left: 5px;
+		}
