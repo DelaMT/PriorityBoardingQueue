@@ -48,9 +48,7 @@ if(checkPassenger($idcard, $conn) == 0) {
 
     }
     echo "Added to Database!";
-} else if(checkName($idcard, $name, $conn)==false){
-    echo "<script> location.href='./AdminSearch/ConfirmName.php'; </script>";
-    exit;
+
 }else{
 
 
@@ -118,7 +116,7 @@ if(checkPassenger($idcard, $conn) == 0) {
    //     die(print_r(sqlsrv_errors(), true));
 
 
-    echo "Welcome Back!";
+    //echo "Welcome Back!";
 }
 
 //START OF VEHICLE DB
