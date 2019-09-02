@@ -15,12 +15,9 @@ $number = htmlentities($_GET['number']);
 $idcard = htmlentities($_GET['idcard']);
 $countrycode = htmlentities($_GET['countryCode']);
 
-if($number != NULL) {
 //concatenating the country code with the phone number
-    $number = $countrycode . " " . $number;
-} else{
-    $number = NULL;
-}
+$number = $countrycode . " " . $number;
+
 $serverName = "192.168.5.20\sqlexpress"; //serverName\instanceName
 
 // Since UID and PWD are not specified in the $connectionInfo array,
@@ -49,51 +46,12 @@ if(checkPassenger($idcard, $conn) == 0) {
         die(print_r(sqlsrv_errors(), true));
 
     }
-   // echo "Added to Database!";
-/*} else if(checkName($idcard, $name, $conn)==false){
+    echo "Added to Database!";
+} else if(checkName($idcard, $name, $conn)==false){
     echo "<script> location.href='./AdminSearch/ConfirmName.php'; </script>";
-    exit; */
+    exit;
 }else{
-   // echo "Welcome Back!";
-    if(checkName($idcard, $name, $conn)==false){
-        $sql = "SELECT PassengerName AS name FROM dbo.Main WHERE PassengerIDCard = '$idcard';";
-        $result = sqlsrv_query($conn, $sql);
-        $row = sqlsrv_fetch_array($result);
-        $oldname = $row["name"];
-
-        echo "<h2>Update passenger's name with id no. " . $idcard . " from " . $oldname . "to " . $name . " in database?</h2>
-        <form>
-        <input type='hidden' value=" . $oldname . " id='oldname' name='oldname'>
-        <input type='hidden' value=" . $name . " id='name' name='name'>
-        <input type='hidden' value=" . $idcard . " id='idcard' name='idcard'> 
-        <input type='submit' value='UPDATE NAME'>
-        </form>";
-
-    } else{
-        $oldname = NULL;
-    }
-
-    if($number != NULL){
-        $sql = "SELECT ContactNumber AS number FROM dbo.Main WHERE PassengerIDCard = '$idcard';";
-        $result = sqlsrv_query($conn, $sql);
-        $row = sqlsrv_fetch_array($result);
-        $oldnumber = $row["number"];
-        if($oldnumber != $number && $number != NULL) {
-            echo "<h2>Passenger's contact number has been updated from " . $oldnumber . "to " . $number . " in database.</h2>
-        <form action='updating.php' method='post'>
-        <input type='hidden' value='$oldnumber' name='oldnumber' id='oldnumber'>
-        <input type='hidden' value='$number' name='number' id='number'>
-        <input type='submit' value='Update'>
-        </form>";
-        }
-    }
-    //UPDATE CONTACT NUMBER
-    $query = "UPDATE dbo.Passengers SET ContactNumber = '$number', PassengerName = '$name' WHERE PassengerIDCard = '$idcard';";
-    $result = sqlsrv_query($conn, $query);
-    if (!$result) {
-        die(print_r(sqlsrv_errors(), true));
-
-    }
+    echo "Welcome Back!";
 }
 
 //START OF VEHICLE DB
@@ -162,7 +120,7 @@ $result = sqlsrv_query($conn, $query);
 if (!$result) {
     die(print_r(sqlsrv_errors(), true));
 }
-//echo "Added to Database!";
+echo "Added to Database!";
 
 if(($mgarrtrip1 = htmlentities($_GET['mgarr']))=="specific") {
     $mgarrdate1 = htmlentities($_GET['mgarrdate']);
