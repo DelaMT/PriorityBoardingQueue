@@ -16,48 +16,37 @@
 
 <head>
     <title>Form</title>
-	<link rel = "stylesheet"
-		type = "text/css"
-		href = "./styles/sharedStyles/headerStyle.css" />
-		
-	<link rel = "stylesheet"
-		type = "text/css"
-		href = "./styles/sharedStyles/titleStyle.css" />
-		
-	<link rel = "stylesheet"
-		type = "text/css"
-		href = "./styles/sharedStyles/classStyle.css" />
-		
-	<link rel = "stylesheet"
-		type = "text/css"
-		href = "./styles/formStyles/formStyle.css" />
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-		  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- BOOTSTRAP LINKS -->
+    <link rel="stylesheet" href="./css/bootstrap/bootstrap.css">
+    <!-- BOOTSTRAP LINKS -->
 </head>
-<body>
-
-	  <a id="mainMenu" href="../mainMenu.html">Back</a>
-	  <br>
-	  <img id="gcimg" src="../media/gozoChannelnewLogo.png" alt="Gozo Channel Logo">
-
-	  <script>
-		  submitForms = function(){
-			  document.getElementById("form1").submit();
-			  document.getElementById("form2").submit();
-		  }
-	  </script>
-
-    <section class="classStyle">
-        <h1 class="titleTextStyle">
+<body class="body-background-style">
+    <!-- NavBar -->
+    <nav class="navbar navbar-expand-sm bg-gozoChannelHeader navbar-dark">
+        <ul class="navbar-nav">
+            <a href="#" class="nav-logo-style">
+                <img src="GozoChannelLogo.png" height="49" alt="">
+            </a>
+            <li class="nav-item active">
+                <text class="nav-brand-style" href="">Form</text>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-item-style" href="../mainMenu.html">Main Menu</a>
+            </li>
+        </ul>
+    </nav>
+    <!-- NavBar -->
+    <section class="mainSectionStyle">
+        <h1 class="mainTitleTextStyle">
             PRIORITY BOARDING QUEUE FORM
         </h1>
         <section>
 		<form action="testing.php" method="get" id="form1" onsubmit="return checkInp()" name="form1">
 			<div class = "pname">
-			<label for="passengername" id="label1">Passenger Name:</label>
+			<label for="passengername" id="label1" class="inputTextStyle">Passenger Name:</label>
 		<input type=text name=passengername id="passengername" class="text-center" required>
 
-		<label for="reason" id="label2">Reason:</label>
+		<label for="reason" id="label2" class="inputTextStyle">Reason:</label>
 				<select id="reason" name="reason">
 					<?php
                     $serverName = "192.168.5.20\sqlexpress";
@@ -71,11 +60,10 @@
 					?>
 				</select>
 			</div>
-		<br><br>
 			<!-- country codes (ISO 3166) and Dial codes. -->
 			<div class="contact">
-			<label for="number" id="label3">Contact Number:</label>
-			<select name="countryCode" id="countryCode">
+			<label for="number" id="label3" class="inputTextStyle">Contact Number:</label>
+			<select name="countryCode" id="countryCode" style="width: 120px;height: auto;">
 				<option data-countryCode="MT" value="356" Selected>MT (+356)</option>
 				<option data-countryCode="GB" value="44">UK (+44)</option>
 				<optgroup label="Other countries">
@@ -295,13 +283,12 @@
 					<option data-countryCode="ZW" value="263">Zimbabwe (+263)</option>
 				</optgroup>
 			</select>
-		<input type=text name=number id=number required>
+		<input type=text name=number id=number>
 			</div>
-			<br><br>
 			<div class="idcard">
-			<label for="idcard" id="label4">ID Card:</label>
+			<label for="idcard" id="label4" class="inputTextStyle">ID Card:</label>
 			<input type="text" name="idcard" id="idcard" required>
-			<label for="er">Extra Requirements:</label>
+			<label for="er" class="inputTextStyle">Extra Requirements:</label>
 			<select id="er" name="er">
                 <?php
                 require 'ExtraReqMethods.php';
@@ -316,47 +303,46 @@
                 }
                 ?>
 			</select>
-			<br/><br/><br/>
+			<br/><br/><br/><br><br>
 			</div>
-		<br/><br/><br/><br/><br/>
 				<div class = "veh1">
-					<label for="vehicle1">Vehicle 1:</label>
+					<label for="vehicle1" class="inputTextStyle">Vehicle 1:</label>
 					<input type="text" name="vehicle1" id="vehicle1">
-					<label for="reg1">Registration 1:</label>
+					<label for="reg1" class="inputTextStyle">Registration 1:</label>
 					<input type="text" name="reg1" id="reg1">
 				</div>
 				<br>
-				<div class = "veh2 text-center">
-					<label for="vehicle2">Vehicle 2:</label>
+				<div class = "veh2">
+					<label for="vehicle2" class="inputTextStyle">Vehicle 2:</label>
 					<input type="text" name="vehicle2" id="vehicle2">
-					<label for="reg2">Registration 2:</label>
+					<label for="reg2" class="inputTextStyle">Registration 2:</label>
 					<input type="text" name="reg2" id="reg2">
 				</div>
 				<br>
 				<div class = "veh3">
-					<label for="vehicle3">Vehicle 3:</label>
+					<label for="vehicle3" class="inputTextStyle">Vehicle 3:</label>
 					<input type="text" name="vehicle3" id="vehicle3">
-					<label for="reg3">Registration 3:</label>
+					<label for="reg3" class="inputTextStyle">Registration 3:</label>
 					<input type="text" name="reg3" id="reg3">
 				</div>
 				<br>
 				<div class = "veh4">
-					<label for="vehicle4">Vehicle 4:</label>
+					<label for="vehicle4" class="inputTextStyle">Vehicle 4:</label>
 					<input type="text" name="vehicle4" id="vehicle4">
-					<label for="reg4">Registration 4:</label>
+					<label for="reg4" class="inputTextStyle">Registration 4:</label>
 					<input type="text" name="reg4" id="reg4">
 				</div>
-				<br><br>
+				<br><br><br><br>
 				<div class="selectmgarr1">
-				<label for="mgarr">Mgarr Trips 1:</label>
-			<select id = "mgarr" name="mgarr" onChange="changetextboxmgarr();">
+				<label for="mgarr" class="inputTextStyle">Mgarr Trips 1:</label>
+			<select id = "mgarr" name="mgarr" onChange="changetextboxmgarr();" style="margin-left:36px">
                 <option value="na">N/A</option>
                 <option value="open">Open</option>
                 <option value="specific">Specific</option>
 			</select>
-				<label for="mgarrdate">Date of travel FROM Mgarr:</label>
-				<input type="date" name="mgarrdate" id="mgarrdate" disabled/>
-				<label for="mgarrtime">Time 1:</label>
+				<label for="mgarrdate" class="inputTextStyle">Date of travel FROM Mgarr:</label>
+				<input type="date" name="mgarrdate" id="mgarrdate" disabled style="margin-left:38px"/>
+				<label for="mgarrtime" class="inputTextStyle">Time 1:</label>
 				<input type="time" name="mgarrtime" id="mgarrtime" disabled/>
 				<script type="text/javascript">
 					function changetextboxmgarr()
@@ -377,17 +363,16 @@
 					}
 				</script>
 				</div>
-			<br>
 			<div class="selectcirkewwa1">
-				<label for="cirkewwa">Cirkewwa Trips 1:</label>
+				<label for="cirkewwa" class="inputTextStyle">Cirkewwa Trips 1:</label>
 				<select id = "cirkewwa" name="cirkewwa" onChange="changetextboxcirkewwa();">
                     <option value="na">N/A</option>
                     <option value="open">Open</option>
                     <option value="specific">Specific</option>
 				</select>
-				<label for="cirkewwadate">Date of travel TO Cirkewwa:</label>
-				<input type="date" name="cirkewwadate" id="cirkewwadate" disabled/>
-				<label for="cirkewwatime">Time 1:</label>
+				<label for="cirkewwadate" class="inputTextStyle">Date of travel TO Cirkewwa:</label>
+				<input type="date" name="cirkewwadate" id="cirkewwadate" disabled style="margin-left:32px"/>
+				<label for="cirkewwatime" class="inputTextStyle">Time 1:</label>
 				<input type="time" name="cirkewwatime" id="cirkewwatime" disabled/>
 				<script type="text/javascript">
 					function changetextboxcirkewwa()
@@ -409,16 +394,16 @@
 				</script>
 			</div>
 			<div class="selectmgarr2">
-				<label for="mgarr2">Mgarr Trips 2:</label>
-				<select id = "mgarr2" name="mgarr2" onChange="changetextboxmgarr2();">
+				<label for="mgarr2" class="inputTextStyle">Mgarr Trips 2:</label>
+				<select id = "mgarr2" name="mgarr2" onChange="changetextboxmgarr2();" style="margin-left:36px">
                     <option value="na">N/A</option>
                     <option value="open">Open</option>
                     <option value="specific">Specific</option>
 				</select>
-				<label for="mgarrdate2">Date of travel TO Mgarr:</label>
-				<input type="date" name="mgarrdate2" id="mgarrdate2" disabled/>
-				<label for="mgarrtime2">Time 2:</label>
-				<input type="time" name="mgarrtime2" id="mgarrtime2" disabled/>
+				<label for="mgarrdate2" class="inputTextStyle">Date of travel TO Mgarr:</label>
+				<input type="date" name="mgarrdate2" id="mgarrdate2" disabled style="margin-left:69px"/>
+				<label for="mgarrtime2" class="inputTextStyle"">Time 2:</label>
+				<input type="time" name="mgarrtime2" id="mgarrtime2" disabled />
 				<script type="text/javascript">
 					function changetextboxmgarr2()
 					{
@@ -439,16 +424,16 @@
 				</script>
 			</div>
 			<div class="selectcirkewwa2">
-				<label for="cirkewwa2">Cirkewwa Trips 2:</label>
+				<label for="cirkewwa2" class="inputTextStyle">Cirkewwa Trips 2:</label>
 				<select id = "cirkewwa2" name="cirkewwa2" onChange="changetextboxcirkewwa2();">
                     <option value="na">N/A</option>
                     <option value="open">Open</option>
                     <option value="specific">Specific</option>
 
 				</select>
-				<label for="cirkewwadate2">Date of travel FROM Cirkewwa:</label>
+				<label for="cirkewwadate2" class="inputTextStyle">Date of travel FROM Cirkewwa:</label>
 				<input type="date" name="cirkewwadate2" id="cirkewwadate2" disabled/>
-				<label for="cirkewwatime">Time 1:</label>
+				<label for="cirkewwatime" class="inputTextStyle">Time 1:</label>
 				<input type="time" name="cirkewwatime2" id="cirkewwatime2" disabled />
 				<script type="text/javascript">
 					function changetextboxcirkewwa2()
@@ -469,7 +454,8 @@
 					}
 				</script>
 			</div>
-			<input type="submit" name="submit" value="send">
+            <br>
+			<input type="submit" name="submit" value="Add to Database" class="btn-gozoChannelOption">
 			</form>
 		</section>
 </section>
