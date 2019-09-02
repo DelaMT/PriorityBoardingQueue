@@ -2,32 +2,39 @@
 
 <html>
 <head>
+	<!-- BOOTSTRAP LINKS -->
+	<link rel="stylesheet" href="././css/bootstrap/bootstrap.css">
+	<!-- BOOTSTRAP LINKS -->
     <title>Admin Utilities</title>
-	<link rel = "stylesheet"
-		type = "text/css"
-		href = "./styles/sharedStyles/headerStyle.css" />
-		
-	<link rel = "stylesheet"
-		type = "text/css"
-		href = "./styles/sharedStyles/titleStyle.css" />
-		
-	<link rel = "stylesheet"
-		type = "text/css"
-		href = "./styles/sharedStyles/classStyle.css" />
 </head>
-<body>
-	<ul>
-	  <li><a id="mainMenu" href="../mainMenu.html">Main Menu</a></li>
-	  <li><a id="formHistory" href="formHistory.html">Form History</a></li>
-	  <li> <img id="gcimg" src="../media/gozoChannelnewLogo.png"></li>
-	</ul> 
-	
-    <section class="classStyle">
-        <h1 class="titleTextStyle">
-            ADMIN UTILITIES
-        </h1>
-		<a href="./AdminAdd.php"><input type="button" id="add" name="add" value="Add" style="height: 100px; width:100px;"></a>
+<body class="body-background-style">
+<!-- NavBar -->
+<nav class="navbar navbar-expand-sm bg-gozoChannelHeader navbar-dark">
+	<ul class="navbar-nav">
+		<li class="nav-item active">
+			<text class="nav-brand-style" href="">Admin Utilities</text>
+		</li>
+		<li class="nav-item active">
+			<a class="nav-item-style" href="../mainMenu.html">Main Menu</a>
+		</li>
+	</ul>
+</nav>
+<!-- NavBar -->
+<section class="classStyle">
 
-    </section>
+	<h1 class="subtitleTextStyle">
+		Admin Utilities
+	</h1>
+
+	<h2 class="titleTextStyle">
+		PRIORITY BOARDING REPORTER
+	</h2>
+	<a href="./AdminAdd.php"><input type="button" id="add" name="add" value="Add" style="height: 75px; width:75px;"></a>
+
+
+</section>
+<!-- BOOTSTRAP LINKS -->
+<script src ="../js/bootstrap.js"></script>
+<!-- BOOTSTRAP LINKS -->
 </body>
 </html>
