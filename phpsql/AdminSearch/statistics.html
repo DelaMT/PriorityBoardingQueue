@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- BOOTSTRAP LINKS -->
+    <link rel="stylesheet" href="./../css/bootstrap/bootstrap.css">
+    <!-- BOOTSTRAP LINKS -->
+    <title>Boarding Statistics</title>
+</head>
+<body class="body-background-style">
+<!-- NavBar -->
+<nav class="navbar navbar-expand-sm bg-gozoChannelHeader navbar-dark">
+    <ul class="navbar-nav">
+        <a href="#" class="nav-logo-style">
+            <img src="../GozoChannelLogo.png" height="49" alt="">
+        </a>
+        <li class="nav-item active">
+            <text class="nav-brand-style" href="">Statistics</text>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-item-style" href="../adminUtils.html">Back</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-item-style" href="../../mainMenu.html">Main Menu</a>
+        </li>
+    </ul>
+</nav>
+<!-- NavBar -->
+<section class="mainSectionStyle">
+    <form action="./getstats.php" method="post">
+    <label for="stats" class="inputTextStyle">Enter a YEAR for which you would like to see the boarding statistics (1971-Present)</label>
+        <input type="text" id="stats" name="stats">
+        <input type="submit" value="View Statistics" class="btn-gozoChannelOption">
+    </form>
+</section>
+</body>
+</html>

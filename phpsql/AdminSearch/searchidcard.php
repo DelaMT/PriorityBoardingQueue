@@ -12,9 +12,9 @@ ALSO DISPLAY VEHICLES THAT PASSENGER HAS REGISTERED-->
 <!-- NavBar -->
 <nav class="navbar navbar-expand-sm bg-gozoChannelHeader navbar-dark">
     <ul class="navbar-nav">
-        <a href="#" class="nav-logo-style">
-            <img src="../GozoChannelLogo.png" height="49" alt="">
-        </a>
+        <li class="nav-item active">
+            <a href="#" class="nav-logo-style"><img src="../GozoChannelLogo.png" height="49" alt=""></a>
+        </li>
         <li class="nav-item active">
             <text class="nav-brand-style" href="">Searched ID Card</text>
         </li>
@@ -61,8 +61,8 @@ ALSO DISPLAY VEHICLES THAT PASSENGER HAS REGISTERED-->
             </tr>
         </tbody>
     </table>
-    <br><br>
-    <h1 class="mainSubtitleTextStyle">Registered Vehicles :</h1>
+    <br>
+    <h1 class="mainSubtitleTextStyleUnderlined">Registered Vehicles :</h1>
     <table class="table table-bigBorderHalved" style="width: 50%">
         <thead>
             <tr class="tableTitleText">
@@ -89,9 +89,8 @@ ALSO DISPLAY VEHICLES THAT PASSENGER HAS REGISTERED-->
         ?>
         </tbody>
     </table>
-    <br><br>
-
-    <h1 class="mainSubtitleTextStyle">Last Priority Boarding details :</h1>
+    <br>
+    <h1 class="mainSubtitleTextStyleUnderlined">Last Priority Boarding details :</h1>
     <table class="table table-bigBorderHalved" style="width: 50%">
         <thead>
             <tr class="tableTitleText">
@@ -131,7 +130,7 @@ ALSO DISPLAY VEHICLES THAT PASSENGER HAS REGISTERED-->
         ?>
         </tbody>
     </table>
-    <br><br>
+    <br>
     <table class="table table-bigBorderHalved" style="width: 50%">
         <thead>
             <tr class="tableTitleText">
@@ -169,7 +168,45 @@ ALSO DISPLAY VEHICLES THAT PASSENGER HAS REGISTERED-->
         ?>
         </tbody>
     </table>
-    <br><br>
+    <br>
+    <table class="table table-bigBorderHalved" style="width: 50%">
+        <thead>
+        <tr class="tableTitleText">
+            <th><h2>PID</h2></th>
+            <th><h2>Cirkewwa - Date of travel FROM</h2></th>
+            <th><h2>Time</h2></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        $query_priority2 = "Select TOP 1 Main.PID, Main.Cirkewwa_Date_of_travel_from, Main.Cirkewwa_Specific_Trip_2 
+        FROM dbo.Main INNER JOIN dbo.Passengers ON Main.PID = Passengers.PID 
+        WHERE Passengers.PassengerIDCard = '$id'
+        ORDER BY Main.Cirkewwa_Date_of_travel_from DESC, Main.Cirkewwa_Specific_Trip_2 DESC;";
+
+        $rowSQL = sqlsrv_query($conn, $query_priority2);
+        //die(print_r(sqlsrv_errors(), true));
+        while (($row = sqlsrv_fetch_array($rowSQL))!=NULL){
+            $temp = $row['Cirkewwa_Date_of_travel_from'];
+            if($row['Cirkewwa_Date_of_travel_from'] != NULL) {
+                $temp = date("Y-m-d", strtotime($row['Cirkewwa_Date_of_travel_from']->format('Y-m-d')));
+            }else{
+                $row['Cirkewwa_Date_of_travel_from'] = "N/A";
+                $temp = "N/A";
+            }
+            if($row['Cirkewwa_Specific_Trip_2'] != NULL) {
+                $temp2 = date("H:i:s", strtotime($row['Cirkewwa_Specific_Trip_2']->format('H:i:s')));
+            } else{
+                $row['Cirkewwa_Specific_Trip_2'] = "N/A";
+                $temp2="N/A";
+            }
+
+            echo "<tr class='tableResultText'><td style='text-align:center;'>" . $row['PID'] . "</td><td style='text-align:center;'>" . $temp . "</td><td style='text-align:center;'>" . $temp2 . "</td></tr>";
+        }
+        ?>
+        </tbody>
+    </table>
+    <br>
     <table class="table table-bigBorderHalved" style="width: 50%">
         <thead>
             <tr class="tableTitleText">
@@ -207,53 +244,13 @@ ALSO DISPLAY VEHICLES THAT PASSENGER HAS REGISTERED-->
         ?>
         </tbody>
     </table>
-    <br><br>
-    <table class="table table-bigBorderHalved" style="width: 50%">
-        <thead>
-            <tr class="tableTitleText">
-                <th><h2>PID</h2></th>
-                <th><h2>Cirkewwa - Date of travel FROM</h2></th>
-                <th><h2>Time</h2></th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php
-        $query_priority2 = "Select TOP 1 Main.PID, Main.Cirkewwa_Date_of_travel_from, Main.Cirkewwa_Specific_Trip_2 
-        FROM dbo.Main INNER JOIN dbo.Passengers ON Main.PID = Passengers.PID 
-        WHERE Passengers.PassengerIDCard = '$id'
-        ORDER BY Main.Cirkewwa_Date_of_travel_from DESC, Main.Cirkewwa_Specific_Trip_2 DESC;";
-
-        $rowSQL = sqlsrv_query($conn, $query_priority2);
-        //die(print_r(sqlsrv_errors(), true));
-        while (($row = sqlsrv_fetch_array($rowSQL))!=NULL){
-            $temp = $row['Cirkewwa_Date_of_travel_from'];
-            if($row['Cirkewwa_Date_of_travel_from'] != NULL) {
-                $temp = date("Y-m-d", strtotime($row['Cirkewwa_Date_of_travel_from']->format('Y-m-d')));
-            }else{
-                $row['Cirkewwa_Date_of_travel_from'] = "N/A";
-                $temp = "N/A";
-            }
-            if($row['Cirkewwa_Specific_Trip_2'] != NULL) {
-                $temp2 = date("H:i:s", strtotime($row['Cirkewwa_Specific_Trip_2']->format('H:i:s')));
-            } else{
-                $row['Cirkewwa_Specific_Trip_2'] = "N/A";
-                $temp2="N/A";
-            }
-
-            echo "<tr class='tableResultText'><td style='text-align:center;'>" . $row['PID'] . "</td><td style='text-align:center;'>" . $temp . "</td><td style='text-align:center;'>" . $temp2 . "</td></tr>";
-        }
-        ?>
-        </tbody>
-    </table>
-    <br><br><br><br>
-    <h2><a href="../AdminAdd.php">GO BACK</a></h2>
     <br>
     <form action="./ViewAllBoardingIDCard.php" method="post">
         <?php
         echo '<input type="hidden" name="personidcard" value="'.
             $id.'">';
         ?>
-        <input type="submit" value="View All Boardings" >
+        <input type="submit" value="View All Boardings" class="btn-gozoChannelOption" >
     </form>
 </section>
 </body>
