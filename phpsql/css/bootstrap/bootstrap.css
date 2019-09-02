@@ -6,6 +6,7 @@
  */
 :root {
   --gozochannel: #0F52BA;
+  --gozochannelDark: #021478;
   --blue: #007bff;
   --indigo: #6610f2;
   --purple: #6f42c1;
@@ -48,6 +49,76 @@ html {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+
+/*
+CUSTOM CSS
+ */
+.inputTextStyle{
+  font-family: sans-serif;
+  color: #FFFFFF;
+  font-size: 20px;
+  font-weight: bold;
+}
+.mainTitleTextStyle {
+  font-family: sans-serif;
+  color: #FFFFFF;
+  font-size: 55px;
+  font-weight: bold;
+  text-underline: #FFFFFF;
+  text-decoration: underline;
+  text-underline-style: single;
+}
+
+.mainSubtitleTextStyle{
+  font-family: sans-serif;
+  color: #FFFFFF;
+  font-size: 45px;
+}
+
+.btn-gozoChannelOption {
+  font-family: sans-serif;
+  color: #021478;
+  font-weight: bold;
+  font-size: 20px;
+  background-color: gold;
+  border-color: #021478;
+}
+
+.btn-gozoChannelOption:hover {
+  color: #0F52BA;
+  background-color: #FFFFFF;
+  border-color: #FFFFFF;
+}
+
+.btn-gozoChannel {
+  font-family: sans-serif;
+  color: #021478;
+  font-weight: bold;
+  font-size: 30px;
+  background-color: gold;
+  border-color: #021478;
+}
+
+.btn-gozoChannel:hover {
+  color: #0F52BA;
+  background-color: #FFFFFF;
+  border-color: #FFFFFF;
+}
+
+.mainSectionStyle {
+  padding: 5px;
+}
+
+.mainParagraphTextStyle{
+  font-family: sans-serif;
+  color: #FFFFFF;
+  font-size: 20px;
+  text-underline: #FFFFFF;
+  font-style: italic;
+}
+/*
+CUSTOM CSS
+ */
 
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block;
@@ -94,6 +165,8 @@ abbr[data-original-title] {
   -webkit-text-decoration-skip-ink: none;
   text-decoration-skip-ink: none;
 }
+
+
 
 address {
   margin-bottom: 1rem;
@@ -4246,29 +4319,31 @@ input[type="button"].btn-block {
   background-color: #021478;
 }
 
+.nav-logo-style{
+  padding-right: 15px;
+}
+
 .nav-brand-style{
+  border-left: solid #021478 3px;
   font: 35px Calibri, sans-serif;
   text-decoration: underline #0F52BA;
   font-weight: bold;
   margin-bottom: 15px;
-  padding-bottom: 8px;
-  padding-top: 8px;
+  margin-top: 15px;
+  padding: 15px;
   background-color: gold;
   color:#0F21BA;
   background-image: none;
   background-repeat: no-repeat;
-  padding-right: 15px;
 }
 
 .nav-item-style{
   border-left: solid #021478 3px;
   font: 35px Calibri, sans-serif;
   font-weight: bold;
+  margin-top: 15px;
   margin-bottom: 15px;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding: 15px;
   background-color: gold;
   color: #021478;
   background-image: none;

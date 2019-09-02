@@ -6,7 +6,25 @@
 </head>
 <body>
 <table style="width:50%;" class="mgarrtable">
-
+<!--
+    <tr>
+        <th><h2>ID</h2></th>
+        <th><h2>PID</h2></th>
+        <th><h2>Extra Reqs</h2></th>
+        <th><h2>Reason</h2></th>
+    </tr>
+    <tr>
+        <th><h2>Mgarr - FROM</h2></th>
+        <th><h2>MTime - FROM</h2></th>
+        <th><h2>Mgarr - TO</h2></th>
+        <th><h2>MTime - TO</h2></th>
+    </tr>
+    <tr>
+        <th><h2>Cirkewwa - TO</h2></th>
+        <th><h2>CTime - TO</h2></th>
+        <th><h2>Cirkewwa - FROM</h2></th>
+        <th><h2>CTime - FROM</h2></th>
+    </tr> -->
     <?php
     $serverName = "192.168.5.20\sqlexpress";$connectionInfo = array( "Database"=>"PriorityBoarding","UID"=>"daniel.sumler", "PWD"=>"12345");
     $connectionInfo = array( "Database"=>"PriorityBoarding","UID"=>"daniel.sumler", "PWD"=>"12345");
@@ -118,6 +136,35 @@
 
 <?php
     echo '<img src="./MedicalCerts/' . "$id" . '.JPG" alt="Missing medical certificate"/>';
+/*
+require_once './dompdf/lib/html5lib/Parser.php';
+require_once './dompdf/src/Autoloader.php';
+//require_once './dompdf/lib/php-svg-lib/src/autoload.php';
+require_once './dompdf/src/Autoloader.php';
+Dompdf\Autoloader::register();
+
+$_SESSION["ID"] = $row['ID'];
+$_SESSION["PID"] = $row['PID'];
+$_SESSION["Extra_Requirements"] = $row['Extra_Requirements'];
+$_SESSION["Reason"] = $row['Reason'];
+*/
+/*
+echo "<form action='topdf.php' method='post'>
+    <input type = 'hidden' name='id' value=" . $id . ">
+    <input type = 'hidden' name='pid' value=" . $pid . ">
+    <input type = 'hidden' name='er' value=" . $er . ">
+    <input type = 'hidden' name='reason' value=" . $reason . ">
+    <input type = 'hidden' name='temp' value=" . $temp . ">
+    <input type = 'hidden' name='temp2' value=" . $temp2 . ">
+    <input type = 'hidden' name='temp3' value=" . $temp3 . ">
+    <input type = 'hidden' name='temp4' value=" . $temp4 . ">
+    <input type = 'hidden' name='temp5' value=" . $temp5 . ">
+    <input type = 'hidden' name='temp6' value=" . $temp6 . ">
+    <input type = 'hidden' name='temp7' value=" . $temp7 . ">
+    <input type = 'hidden' name='temp8' value=" . $temp8 . ">  
+    <input type='submit' value='Turn to PDF'>
+    </form>"
+*/
 ?>
 <form>
     <input type=button name=print value="Print" onClick="window.print()">

@@ -16,12 +16,9 @@ $number = htmlentities($_GET['number']);
 $idcard = htmlentities($_GET['idcard']);
 $countrycode = htmlentities($_GET['countryCode']);
 
-if($number != NULL) {
 //concatenating the country code with the phone number
-    $number = $countrycode . " " . $number;
-} else{
-    $number = NULL;
-}
+$number = $countrycode . " " . $number;
+
 $serverName = "192.168.5.20\sqlexpress"; //serverName\instanceName
 
 // Since UID and PWD are not specified in the $connectionInfo array,
@@ -50,11 +47,12 @@ if(checkPassenger($idcard, $conn) == 0) {
         die(print_r(sqlsrv_errors(), true));
 
     }
-   // echo "Added to Database!";
-/*} else if(checkName($idcard, $name, $conn)==false){
+    echo "Added to Database!";
+} else if(checkName($idcard, $name, $conn)==false){
     echo "<script> location.href='./AdminSearch/ConfirmName.php'; </script>";
-    exit; */
+    exit;
 }else{
+
 
    // echo "Welcome Back!";
     if(checkName($idcard, $name, $conn)==false){
@@ -120,6 +118,7 @@ if(checkPassenger($idcard, $conn) == 0) {
    //     die(print_r(sqlsrv_errors(), true));
 
 
+    echo "Welcome Back!";
 }
 
 //START OF VEHICLE DB
@@ -173,7 +172,7 @@ $result = sqlsrv_query($conn, $query);
 if (!$result) {
     die(print_r(sqlsrv_errors(), true));
 }
-//echo "Added to Database!";
+echo "Added to Database!";
 
 if(($mgarrtrip1 = htmlentities($_GET['mgarr']))=="specific") {
     $mgarrdate1 = htmlentities($_GET['mgarrdate']);
