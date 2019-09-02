@@ -295,7 +295,7 @@
 					<option data-countryCode="ZW" value="263">Zimbabwe (+263)</option>
 				</optgroup>
 			</select>
-		<input type=text name=number id=number required>
+		<input type=text name=number id=number>
 			</div>
 			<br><br>
 			<div class="idcard">

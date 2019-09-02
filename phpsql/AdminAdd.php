@@ -27,6 +27,11 @@
     <input type="submit" id="personidcard" value="Search Database">
     </form>
 </div>
+<div class="statistics">
+    <form action="./AdminSearch/statistics.html" method="post">
+    <input type="submit" value="View Boarding Statistics">
+    </form>
+</div>
 
 <?php
 
