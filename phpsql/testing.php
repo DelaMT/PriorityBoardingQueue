@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 
+
 <?php
 //START OF SETTING PASSENGER DB
 require 'PassengerMethods.php';
@@ -8,7 +9,7 @@ require 'VehicleMethods.php';
 require 'RemarkMethods.php';
 require 'MainMethods.php';
 require 'ExtraReqMethods.php';
-
+$changes = [false, false];
 $highest=0;
 $name = htmlentities($_GET['passengername']);
 $number = htmlentities($_GET['number']);
@@ -54,46 +55,71 @@ if(checkPassenger($idcard, $conn) == 0) {
     echo "<script> location.href='./AdminSearch/ConfirmName.php'; </script>";
     exit; */
 }else{
+
    // echo "Welcome Back!";
     if(checkName($idcard, $name, $conn)==false){
-        $sql = "SELECT PassengerName AS name FROM dbo.Main WHERE PassengerIDCard = '$idcard';";
+        $changes[0] = true;
+        $sql = "SELECT PassengerName AS name FROM dbo.Passengers WHERE PassengerIDCard = '$idcard';";
         $result = sqlsrv_query($conn, $sql);
         $row = sqlsrv_fetch_array($result);
         $oldname = $row["name"];
 
-        echo "<h2>Update passenger's name with id no. " . $idcard . " from " . $oldname . "to " . $name . " in database?</h2>
-        <form>
+        echo "<h2>Update passenger's name with id no. " . $idcard . " from " . $oldname . " to " . $name . " in database?</h2>
+        <form action='updatingname.php' method='post' id='form1' name='form1'>
         <input type='hidden' value=" . $oldname . " id='oldname' name='oldname'>
         <input type='hidden' value=" . $name . " id='name' name='name'>
         <input type='hidden' value=" . $idcard . " id='idcard' name='idcard'> 
-        <input type='submit' value='UPDATE NAME'>
+        <input type='submit' form='form1' value='UPDATE NAME'>
         </form>";
-
     } else{
         $oldname = NULL;
     }
 
     if($number != NULL){
-        $sql = "SELECT ContactNumber AS number FROM dbo.Main WHERE PassengerIDCard = '$idcard';";
-        $result = sqlsrv_query($conn, $sql);
-        $row = sqlsrv_fetch_array($result);
-        $oldnumber = $row["number"];
-        if($oldnumber != $number && $number != NULL) {
-            echo "<h2>Passenger's contact number has been updated from " . $oldnumber . "to " . $number . " in database.</h2>
-        <form action='updating.php' method='post'>
+        if(checkContactNum($idcard, $number, $conn) == false) {
+            $changes[1] = true;
+            $sql = "SELECT ContactNumber AS number FROM dbo.Passengers WHERE PassengerIDCard = '$idcard';";
+            $result = sqlsrv_query($conn, $sql);
+            $row = sqlsrv_fetch_array($result);
+            $oldnumber = $row["number"];
+            if ($oldnumber != $number && $number != NULL) {
+                echo "<h2>Update passenger's contact number with ID card '$idcard' from " . $oldnumber . " to " . $number . " in database?</h2>
+        <form action='updatingnumber.php' method='post' id='form2' name='form2'>
         <input type='hidden' value='$oldnumber' name='oldnumber' id='oldnumber'>
         <input type='hidden' value='$number' name='number' id='number'>
-        <input type='submit' value='Update'>
-        </form>";
+        <input type='hidden' value=" . $idcard . " name='idcard' id='idcard'>
+        <input type='submit' form='form2' value='UPDATE CONTACT NUMBER'>
+        </form>
+        <!--<button type='submit' form='form2' value='UPDATE CONTACT NUMBER'>UPDATE CONTACT NUMBER</button>-->";
+            }
         }
     }
-    //UPDATE CONTACT NUMBER
-    $query = "UPDATE dbo.Passengers SET ContactNumber = '$number', PassengerName = '$name' WHERE PassengerIDCard = '$idcard';";
-    $result = sqlsrv_query($conn, $query);
-    if (!$result) {
-        die(print_r(sqlsrv_errors(), true));
 
+    if($changes[0] == true && $changes[1] == true){
+        echo "<h2>Update both name and contact number?</h2>
+        <form action='updateboth.php' method='post' id='form3'>
+        <input type='hidden' value='$oldnumber' name='oldnumber' id='oldnumber'>
+        <input type='hidden' value='$number' name='number' id='number'>
+        <input type='hidden' value=" . $oldname . " id='oldname' name='oldname'>
+        <input type='hidden' value=" . $name . " id='name' name='name'>
+        <input type='hidden' value=" . $idcard . " id='idcard' name='idcard'> 
+        <input type='submit' value='UPDATE BOTH' form='form3'>
+        </form>";
     }
+
+    $reason = htmlentities($_GET['reason']);
+    echo "<br><br><br>
+    <form action='remarks.php' method='post' id='form4'>
+    <input type='hidden' value=" . $reason ." id='reason' name='reason'>
+    <input type='submit' form='form4' value='IGNORE AND VIEW REMARK'>
+    </form>";
+    //UPDATE CONTACT NUMBER
+  //  $query = "UPDATE dbo.Passengers SET ContactNumber = '$number', PassengerName = '$name' WHERE PassengerIDCard = '$idcard';";
+  //  $result = sqlsrv_query($conn, $query);
+   // if (!$result) {
+   //     die(print_r(sqlsrv_errors(), true));
+
+
 }
 
 //START OF VEHICLE DB
@@ -121,21 +147,6 @@ if(DetectVehicle($vehicle4, $reg4)==true && checkReg($reg4, $conn) == 0){
 
 //START OF REMARK DB
 $reason = htmlentities($_GET['reason']);
-if(($rem = fetchRemark($reason, $conn))!=NULL) {
-    echo
-    "<table style='border:solid; width:600px; margin:0 auto;'>
-    <thead>
-    <th style='border: solid 10px; width: 600px; margin:0 auto;'>
-    <h3 style='font-size:50px; padding:0px;'><strong>ATTENTION</strong></h3>
-    </th>
-    </thead>
-    <tbody>
-    <td style='border:solid; text-align:center;'>
-    <h4 style='font-size:30px;'>'$rem'</h4>
-    </td>
-    </tbody>
-    </table>";
-}
 
 //START OF MAIN DB
 $extrareqs = htmlentities($_GET['er']);

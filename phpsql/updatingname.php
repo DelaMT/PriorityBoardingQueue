@@ -1,16 +1,4 @@
 <?php
-if (isset($_POST['action'])) {
-    switch ($_POST['action']) {
-        case 'insert':
-            insert();
-            break;
-        case 'select':
-            select();
-            break;
-    }
-}
-
-function select() {
     $serverName = "192.168.5.20\sqlexpress"; //serverName\instanceName
 
     // Since UID and PWD are not specified in the $connectionInfo array,
@@ -25,11 +13,17 @@ function select() {
         die( print_r( sqlsrv_errors(), true));
     }
 
-    exit;
-}
+    $oldname = $_POST['oldname'];
+    $newname = $_POST['name'];
+    $idcard = $_POST['idcard'];
 
-function insert() {
-    echo "The insert function is called.";
-    exit;
-}
+    $sql = "UPDATE dbo.Passengers SET PassengerName = '$newname' WHERE PassengerIDCard = '$idcard';";
+    $result = sqlsrv_query($conn, $sql);
+    if($result){
+       echo "<h1>Name successfully changed from '$oldname' to '$newname'</h1>";
+    } else{
+        echo "<h1>An error occurred! Please try again later!</h1>";
+        die(print_r(sqlsrv_errors(), true));
+    }
+
 ?>

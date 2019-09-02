@@ -41,4 +41,15 @@ function checkName($idcard, $passengerName, $conn){
     }
 }
 
+function checkContactNum($idcard, $newnumber, $conn){
+    $query_exists="SELECT ContactNumber AS num FROM dbo.Passengers WHERE PassengerIDCard = '$idcard';";
+    $rowSQL = sqlsrv_query($conn, $query_exists);
+    $row = sqlsrv_fetch_array($rowSQL);
+    if($row["num"] == "$newnumber"){
+        return true;
+    }else{
+        return false;
+    }
+}
+
 ?>
