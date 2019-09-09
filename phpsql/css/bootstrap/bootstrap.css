@@ -141,6 +141,21 @@ CUSTOM CSS
   text-underline: #FFFFFF;
   font-style: italic;
 }
+
+.issueTitleTextStyle{
+   font-family: sans-serif;
+   color: #FFFFFF;
+   font-size: 15px;
+   text-underline: #FFFFFF;
+  text-align: center;
+ }
+
+.issueResultTextStyle{
+  font-family: sans-serif;
+  color: #FFFFFF;
+  font-size: 11px;
+  text-underline: #FFFFFF;
+}
 /*
 CUSTOM CSS
  */
