@@ -39,16 +39,17 @@
                 die( print_r( sqlsrv_errors(), true));
             }
             ?>
+            <h1>ALL BOARDINGS</h1 class="tableTitleText">
             <table class="table table-bigBorderHalved" style="width:50%;">
                 <tr class="issueTitleTextStyle">
-                    <th><h2>BOARDING ID - NOT ISSUED</h2></th>
+                    <th><h2>BOARDING ID</h2></th>
                     <th><h2>PASSENGER NAME</h2></th>
                     <th><h2>PASSENGER ID CARD NO.</h2></th>
                 </tr>
 
                 <?php
                 $query_priority2 = "SELECT Main.ID AS id, Passengers.PassengerName AS name, Passengers.PassengerIDCard AS idcard FROM dbo.Main INNER JOIN 
-                                    dbo.Passengers ON Main.PID = Passengers.PID WHERE Main.IssuerID IS NULL;";
+                                    dbo.Passengers ON Main.PID = Passengers.PID WHERE Main.IssuerID IS NULL OR Main.IssuerID IS NOT NULL;";
 
                 $rowSQL = sqlsrv_query($conn, $query_priority2);
                 //die(print_r(sqlsrv_errors(), true));
@@ -61,11 +62,6 @@
                 ?>
             </table>
             <h3 style="text-align: left"class="tableTitleText">View more info about a booking</h3>
-            <form action="viewboarding.php" method="post" id="viewboarding">
-                <label for="bid" class="mainParagraphTextStyle">BOARDING ID</label>
-                <input type="text" id="bid" name="bid">
-                <input type="submit" value="SEARCH BOOKING" form="viewboarding" class="btn-gozoChannelOption">
-            </form>
         </section>
     </body>
 </html>

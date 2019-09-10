@@ -31,7 +31,7 @@
     $selectyr = $_POST["stats"];
     $curyear = date("Y");
 
-    echo "<h1 class='mainSubtitleTextStyleUnderlined'>NUMBER OF PRIOIRITY BOARDINGS IN $selectyr </h1>";
+    echo "<h1 class='mainSubtitleTextStyleUnderlined'>NUMBER OF PRIORITY BOARDINGS IN $selectyr </h1>";
 
     if($selectyr <= $curyear && $selectyr >= 1971) {
 

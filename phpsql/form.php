@@ -455,8 +455,26 @@
 				</script>
 			</div>
             <br>
-			<input type="submit" name="submit" value="Add to Database" class="btn-gozoChannelOption">
-			</form>
+            <label for="issuer" class="inputTextStyle">SELECT ISSUER: </label>
+            <select id="issuer" name="issuer">
+            <?php
+            //require 'ExtraReqMethods.php';
+            $serverName = "192.168.5.20\sqlexpress";
+            $connectionInfo = array( "Database"=>"PriorityBoarding","UID"=>"daniel.sumler", "PWD"=>"12345");
+            $conn = sqlsrv_connect( $serverName, $connectionInfo);
+            $sql = sqlsrv_query($conn, "SELECT Issuer_Name AS name, IssuerID AS issuerid FROM dbo.Issuer");
+            while ($row = sqlsrv_fetch_array($sql)){
+                //echo "<option value="'.$row['reason'] .'">" . $row['reason'] . "</option>";
+                echo '<option value="'.$row['issuerid'].'">'.$row['name'].'</option>';
+
+            }
+            ?>
+            </select>
+            <br><br>
+            <p class="inputTextStyle">Signature: ________________</p>
+            <br>
+            <input type="submit" name="submit" value="Add to Database" class="btn-gozoChannelOption">
+        </form>
 		</section>
 </section>
 </body>

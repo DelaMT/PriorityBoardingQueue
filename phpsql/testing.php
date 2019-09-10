@@ -30,6 +30,17 @@
             require 'RemarkMethods.php';
             require 'MainMethods.php';
             require 'ExtraReqMethods.php';
+            function checkContactNum($idcard, $number, $conn){
+                $sql = "SELECT COUNT(ContactNumber) FROM dbo.Passengers WHERE PassengerIDCard = '$idcard';";
+                $result = sqlsrv_query($conn, $sql);
+                if (!$result) {
+                    die(print_r(sqlsrv_errors(), true));
+                }
+
+
+            }
+
+
             $changes = [false, false];
             $highest=0;
             $name = htmlentities($_GET['passengername']);
@@ -88,13 +99,14 @@
                 }
 
                 if($number != NULL){
-                    if(checkContactNum($idcard, $number, $conn) == false) {
-                        $changes[1] = true;
+                    //if(checkContactNum($idcard, $number, $conn) == false) {
+
                         $sql = "SELECT ContactNumber AS number FROM dbo.Passengers WHERE PassengerIDCard = '$idcard';";
                         $result = sqlsrv_query($conn, $sql);
                         $row = sqlsrv_fetch_array($result);
                         $oldnumber = $row["number"];
                         if ($oldnumber != $number && $number != NULL) {
+                            $changes[1] = true;
                             echo "<h2 class='issueTitleTextStyle'>Update passenger's contact number with ID card '$idcard' from " . $oldnumber . " to " . $number . " in database?</h2>
                             <form action='updatingnumber.php' method='post' id='form2' name='form2'>
                             <input type='hidden' value='$oldnumber' name='oldnumber' id='oldnumber'>
@@ -103,7 +115,7 @@
                             <input type='submit' form='form2' value='Update Contact Number' class='btn-gozoChannel'>
                             </form>";
                                             }
-                                        }
+                                      //  }
                                     }
 
                                     if($changes[0] == true && $changes[1] == true){
@@ -168,8 +180,11 @@
             $mgarrtrip2 = htmlentities($_GET['mgarr2']);
             $cirkewwatrip2 = htmlentities($_GET['cirkewwa2']);
 
-            $query = "INSERT INTO dbo.Main(ID, PID, ER_ID, Registration_1, Registration_2, Registration_3, Registration_4, Mgarr_Trips_1, Mgarr_Trips_2, Cirkewwa_Trips_1, Cirkewwa_Trips_2, RemarksID)
- VALUES($ID, $PID, '$extrareqs', '$reg1', '$reg2', '$reg3', '$reg4', '$mgarrtrip1', '$mgarrtrip2', '$cirkewwatrip1', '$cirkewwatrip2', $remarkid)";
+            $issuerid = $_GET['issuer'];
+            $today = date("Y/m/d");
+
+            $query = "INSERT INTO dbo.Main(ID, PID, ER_ID, Registration_1, Registration_2, Registration_3, Registration_4, Mgarr_Trips_1, Mgarr_Trips_2, Cirkewwa_Trips_1, Cirkewwa_Trips_2, RemarksID, IssuerID, IssueDate)
+ VALUES($ID, $PID, '$extrareqs', '$reg1', '$reg2', '$reg3', '$reg4', '$mgarrtrip1', '$mgarrtrip2', '$cirkewwatrip1', '$cirkewwatrip2', $remarkid, '$issuerid', '$today')";
 
             $result = sqlsrv_query($conn, $query);
             if (!$result) {

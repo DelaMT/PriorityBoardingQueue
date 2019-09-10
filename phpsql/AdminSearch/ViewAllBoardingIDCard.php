@@ -40,7 +40,7 @@
     $id = $_POST['personidcard'];
 
 
-    $query_priority1 = "SELECT Main.ID, Main.PID, Extra_Reqs.Extra_Requirements, Passengers.PassengerIDCard, Main.Mgarr_Date_of_travel_from, Main.Mgarr_Specific_Trip_1, Main.Mgarr_Date_of_travel_to, Main.Mgarr_Specific_Trip_2, Main.Cirkewwa_Date_of_travel_to, Main.Cirkewwa_Specific_Trip_1, Main.Cirkewwa_Date_of_travel_from, Main.Cirkewwa_Specific_Trip_2, Remarks.Reason 
+    $query_priority1 = "SELECT Main.ID, Main.PID, Extra_Reqs.Extra_Requirements, Passengers.PassengerIDCard, Main.Mgarr_Date_of_travel_from, Main.Mgarr_Specific_Trip_1, Main.Mgarr_Date_of_travel_to, Main.Mgarr_Specific_Trip_2, Main.Cirkewwa_Date_of_travel_to, Main.Cirkewwa_Specific_Trip_1, Main.Cirkewwa_Date_of_travel_from, Main.Cirkewwa_Specific_Trip_2, Remarks.Reason, Main.IssuerID, Main.IssueDate 
     FROM dbo.Main INNER JOIN dbo.Passengers ON Main.PID=Passengers.PID 
     INNER JOIN dbo.Extra_Reqs ON Main.ER_ID=Extra_Reqs.ER_ID
     INNER JOIN dbo.Remarks ON Main.RemarksID = Remarks.Remark_ID
@@ -49,6 +49,7 @@
     $rowSQL = sqlsrv_query($conn, $query_priority1);
     //die(print_r(sqlsrv_errors(), true));
     while (($row = sqlsrv_fetch_array($rowSQL))!=NULL){
+        $issuerid = $row['issuerid'];
         echo"<table style=\"width:50%; margin-left:auto; margin-right:auto;\" class=\"mgarrtable\">";
         echo"<tr>
         <th><h2>ID</h2></th>
@@ -131,8 +132,16 @@
 
        echo"<tr><td style='text-align:center;'>  $temp5  </td><td style='text-align:center;'>  $temp6  </td><td style='text-align:center;'>  $temp7  </td>
 <td style='text-align:center;'>  $temp8  </td></tr>";
-       echo"</table>";
        echo"<br><br><br>";
+
+       $sql = "SELECT Issuer_Name FROM dbo.Issuer WHERE IssuerID = '$issuerid';";
+
+
+       echo"<th><h2>Issuer Name</h2></th>
+       <th><h2>Issue Date</h2></th>";
+        echo"<tr><td style='text-align:center;'>    </td><td style='text-align:center;'>  $temp6  </td></tr>";
+        echo"</table>";
+        echo"<br><br><br>";
     }
 
 
